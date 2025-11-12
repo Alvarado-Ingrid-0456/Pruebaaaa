@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Webtoons</h3>
+  <table class="table table-hover align-middle text-center shadow-sm">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Portada</th>
+        <th>Título</th>
+        <th>Género</th>
+        <th>Autor</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for w in webtoons %}
+      <tr>
+        <td>{{ w.id }}</td>
+        <td>
+          {% if w.portada %}
+            <img src="{{ w.portada }}" alt="Portada" width="80" height="80" style="object-fit:cover; border-radius:8px;">
+          {% else %}
+            <div style="width:80px;height:80px;background:#f0f2f5;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#999;">
+              Sin portada
+            </div>
+          {% endif %}
+        </td>
+        <td>{{ w.titulo }}</td>
+        <td>{{ w.genero }}</td>
+        <td>{% if w.autor %}{{ w.autor.nombre_usuario }}{% else %}-{% endif %}</td>
+        <td>{{ w.fecha_publicacion }}</td>
+        <td>{{ w.estado }}</td>
+        <td>
+          <a class="btn btn-sm btn-info" href="{% url 'app_Webtoon:actualizar_webtoon' w.id %}">Editar</a>
+          <a class="btn btn-sm btn-danger" href="{% url 'app_Webtoon:borrar_webtoon' w.id %}">Borrar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="8" class="text-center text-muted">No hay webtoons registrados</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

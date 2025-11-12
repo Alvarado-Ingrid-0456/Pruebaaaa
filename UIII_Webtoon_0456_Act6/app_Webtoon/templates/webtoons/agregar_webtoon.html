@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Agregar Webtoon</h3>
+  <div class="card p-3 shadow-sm" style="background: #fff;">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Título</label>
+        <input class="form-control" name="titulo" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea class="form-control" name="descripcion" rows="4"></textarea>
+      </div>
+      <div class="mb-3 row">
+        <div class="col">
+          <label class="form-label">Género</label>
+          <input class="form-control" name="genero">
+        </div>
+        <div class="col">
+          <label class="form-label">Fecha publicación</label>
+          <input class="form-control" name="fecha_publicacion" type="date">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Portada (URL)</label>
+        <input class="form-control" name="portada">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Estado</label>
+        <select class="form-select" name="estado">
+          <option value="En curso">En curso</option>
+          <option value="Finalizado">Finalizado</option>
+          <option value="Hiato">Hiato</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Autor (seleccionar usuario)</label>
+        <select name="autor" class="form-select">
+          <option value="">-- Ninguno --</option>
+          {% for a in autores %}
+            <option value="{{ a.id }}">{{ a.nombre_usuario }} ({{ a.email }})</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button class="btn btn-primary">Guardar Webtoon</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

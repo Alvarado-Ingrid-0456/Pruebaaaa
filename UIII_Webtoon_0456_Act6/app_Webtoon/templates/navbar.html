@@ -1,0 +1,61 @@
+<!-- app_Webtoon/templates/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background:transparent;">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'app_Webtoon:inicio' %}">
+        <i class="bi bi-book"></i> Sistema de Administración Webtoon
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navmenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{% url 'app_Webtoon:inicio' %}"><i class="bi bi-house-door"></i> Inicio</a></li>
+  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-people"></i> Usuario</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:agregar_usuario' %}">Agregar Usuario</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_usuario' %}">Ver Usuario</a></li>
+              <li><a class="dropdown-item" href="#">Actualizar Usuario</a></li>
+              <li><a class="dropdown-item" href="#">Borrar Usuario</a></li>
+            </ul>
+          </li>
+  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-journal-bookmark"></i> Webtoons</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:agregar_webtoon' %}">Agregar webtoon</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_webtoons' %}">Ver webtoons</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_webtoons' %}">Actualizar webtoons</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_webtoons' %}">Borrar webtoons</a></li>
+            </ul>
+          </li>
+          
+  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-award"></i> Membresías</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:agregar_membresia' %}">Agregar membresía</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_membresia' %}">Ver membresías</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_membresia' %}">Actualizar membresía</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_membresia' %}">Borrar membresía</a></li>
+            </ul>
+          </li>
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-bookmarks"></i> Subscripciones</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:agregar_subscripcion' %}">Agregar subscripción</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_subscripcion' %}">Ver subscripciones</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_subscripcion' %}">Actualizar subscripciones</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_subscripcion' %}">Borrar subscripciones</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+        </div>
+        </div>
+    </nav>
+  

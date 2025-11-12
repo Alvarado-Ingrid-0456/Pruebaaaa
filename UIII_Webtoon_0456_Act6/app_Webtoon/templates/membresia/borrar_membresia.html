@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Confirmar borrado</h3>
+  <p>¿Eliminar la membresía <strong>{{ membresia.nombre }}</strong> asignada a <strong>{{ membresia.usuario.nombre_usuario }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <a class="btn btn-secondary" href="{% url 'app_Webtoon:ver_membresia' %}">Cancelar</a>
+    <button class="btn btn-danger" type="submit">Sí, borrar</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Confirmar borrado</h3>
+  <p>¿Deseas eliminar el webtoon <strong>{{ webtoon.titulo }}</strong> (ID: {{ webtoon.id }})?</p>
+  <form method="post">
+    {% csrf_token %}
+    <a class="btn btn-secondary" href="{% url 'app_Webtoon:ver_webtoons' %}">Cancelar</a>
+    <button class="btn btn-danger" type="submit">Sí, borrar</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!-- app_Webtoon/templates/usuario/actualizar_usuario.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h3>Actualizar Usuario</h3>
+<form method="post" action="{% url 'app_Webtoon:realizar_actualizacion_usuario' usuario.id %}">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Nombre</label>
+    <input class="form-control" name="nombre_usuario" value="{{ usuario.nombre_usuario }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input class="form-control" name="email" type="email" value="{{ usuario.email }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Contraseña (si la dejas en blanco no cambia)</label>
+    <input class="form-control" name="contraseña" type="password">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Avatar (URL)</label>
+    <input class="form-control" name="avatar" value="{{ usuario.avatar }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Biografía</label>
+    <textarea class="form-control" name="biografia">{{ usuario.biografia }}</textarea>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Tipo de usuario</label>
+    <select class="form-select" name="tipo_usuario">
+      <option value="Lector" {% if usuario.tipo_usuario == 'Lector' %}selected{% endif %}>Lector</option>
+      <option value="Autor" {% if usuario.tipo_usuario == 'Autor' %}selected{% endif %}>Autor</option>
+      <option value="Admin" {% if usuario.tipo_usuario == 'Admin' %}selected{% endif %}>Admin</option>
+    </select>
+  </div>
+  <button class="btn btn-success" type="submit">Actualizar</button>
+</form>
+{% endblock %}

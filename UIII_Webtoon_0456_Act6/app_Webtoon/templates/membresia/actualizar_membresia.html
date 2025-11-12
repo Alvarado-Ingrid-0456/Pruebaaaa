@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Actualizar Membresía</h3>
+  <div class="card p-3 shadow-sm">
+    <form method="post" action="{% url 'app_Webtoon:realizar_actualizacion_membresia' membresia.id %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input class="form-control" name="nombre" value="{{ membresia.nombre }}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea class="form-control" name="descripcion" rows="3">{{ membresia.descripcion }}</textarea>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Precio</label>
+          <input class="form-control" name="precio" type="number" step="0.01" value="{{ membresia.precio }}">
+        </div>
+        <div class="col">
+          <label class="form-label">Duración (días)</label>
+          <input class="form-control" name="duracion_dias" type="number" value="{{ membresia.duracion_dias }}">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Beneficios</label>
+        <textarea class="form-control" name="beneficios" rows="2">{{ membresia.beneficios }}</textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Nivel</label>
+        <select class="form-select" name="nivel">
+          <option value="Basico" {% if membresia.nivel == 'Basico' %}selected{% endif %}>Basico</option>
+          <option value="Premium" {% if membresia.nivel == 'Premium' %}selected{% endif %}>Premium</option>
+          <option value="VIP" {% if membresia.nivel == 'VIP' %}selected{% endif %}>VIP</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Usuario</label>
+        <select class="form-select" name="usuario">
+          {% for u in usuarios %}
+            <option value="{{u.id}}" {% if membresia.usuario.id == u.id %}selected{% endif %}>{{u.nombre_usuario}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Webtoon</label>
+        <select class="form-select" name="webtoon">
+          {% for w in webtoons %}
+            <option value="{{w.id}}" {% if membresia.webtoon.id == w.id %}selected{% endif %}>{{w.titulo}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <button class="btn btn-success">Guardar cambios</button>
+      <a class="btn btn-secondary" href="{% url 'app_Webtoon:ver_membresia' %}">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

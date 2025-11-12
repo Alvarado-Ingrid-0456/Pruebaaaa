@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Membresías</h3>
+  <table class="table table-hover align-middle text-center">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Usuario</th>
+        <th>Webtoon</th>
+        <th>Nivel</th>
+        <th>Precio</th>
+        <th>Duración (días)</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in membresias %}
+      <tr>
+        <td>{{ m.id }}</td>
+        <td>{{ m.nombre }}</td>
+        <td>{{ m.usuario.nombre_usuario }}</td>
+        <td>{{ m.webtoon.titulo }}</td>
+        <td>{{ m.nivel }}</td>
+        <td>${{ m.precio }}</td>
+        <td>{{ m.duracion_dias }}</td>
+        <td>
+          <a class="btn btn-sm btn-info" href="{% url 'app_Webtoon:actualizar_membresia' m.id %}">Editar</a>
+          <a class="btn btn-sm btn-danger" href="{% url 'app_Webtoon:borrar_membresia' m.id %}">Borrar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="8" class="text-muted">No hay membresías registradas</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="btn btn-primary" href="{% url 'app_Webtoon:agregar_membresia' %}">Agregar nueva membresía</a>
+</div>
+{% endblock %}

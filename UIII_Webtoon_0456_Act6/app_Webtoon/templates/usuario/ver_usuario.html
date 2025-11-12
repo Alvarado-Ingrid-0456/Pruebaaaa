@@ -1,0 +1,40 @@
+<!-- app_Webtoon/templates/usuario/ver_usuario.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h3>Usuarios</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Avatar</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Tipo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in usuarios %}
+    <tr>
+      <td>{{ u.id }}</td>
+      <td>
+        {% if usuario.avatar %}
+            <img src="{{ usuario.avatar }}" width="60" height="60" class="rounded-circle border border-2">
+        {% else %}
+            <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" width="60" height="60" class="rounded-circle border border-2">
+        {% endif %}
+    </td>
+      <td>{{ u.nombre_usuario }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.tipo_usuario }}</td>
+      <td>
+        <a class="btn btn-sm btn-info" href="{% url 'app_Webtoon:actualizar_usuario' u.id %}">Editar</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'app_Webtoon:borrar_usuario' u.id %}">Borrar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No hay usuarios</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

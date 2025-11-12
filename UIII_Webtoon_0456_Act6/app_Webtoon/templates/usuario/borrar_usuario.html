@@ -1,0 +1,11 @@
+<!-- app_Webtoon/templates/usuario/borrar_usuario.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h3>Confirmar borrado</h3>
+<p>¿Está seguro que desea eliminar al usuario <strong>{{ usuario.nombre_usuario }}</strong> (ID: {{ usuario.id }})?</p>
+<form method="post">
+  {% csrf_token %}
+  <a class="btn btn-secondary" href="{% url 'app_Webtoon:ver_usuario' %}">Cancelar</a>
+  <button class="btn btn-danger" type="submit">Sí, borrar</button>
+</form>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Actualizar Suscripción</h3>
+  <div class="card p-3 shadow-sm">
+    <form method="post" action="{% url 'app_Webtoon:realizar_actualizacion_subscripcion' subs.id %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Usuario</label>
+        <select class="form-select" name="usuario">
+          {% for u in usuarios %}
+            <option value="{{ u.id }}" {% if subs.usuario.id == u.id %}selected{% endif %}>{{ u.nombre_usuario }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Webtoon</label>
+        <select class="form-select" name="webtoon">
+          {% for w in webtoons %}
+            <option value="{{ w.id }}" {% if subs.webtoon.id == w.id %}selected{% endif %}>{{ w.titulo }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Fecha suscripción</label>
+          <input class="form-control" type="date" name="fecha_suscripcion" value="{{ subs.fecha_suscripcion }}">
+        </div>
+        <div class="col">
+          <label class="form-label">Progreso lectura (%)</label>
+          <input class="form-control" type="number" name="progreso_lectura" min="0" max="100" value="{{ subs.progreso_lectura }}">
+        </div>
+      </div>
+
+      <div class="mb-3 form-check">
+        <input class="form-check-input" type="checkbox" name="notificaciones_activas" id="notif" {% if subs.notificaciones_activas %}checked{% endif %}>
+        <label class="form-check-label" for="notif">Notificaciones activas</label>
+      </div>
+
+      <div class="mb-3 form-check">
+        <input class="form-check-input" type="checkbox" name="es_favorito" id="fav" {% if subs.es_favorito %}checked{% endif %}>
+        <label class="form-check-label" for="fav">Marcar como favorito</label>
+      </div>
+
+      <button class="btn btn-success">Guardar cambios</button>
+      <a class="btn btn-secondary" href="{% url 'app_Webtoon:ver_subscripcion' %}">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
