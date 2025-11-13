@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Agregar Episodio</h3>
+  <div class="card p-3 shadow-sm">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Webtoon</label>
+        <select class="form-select" name="webtoon">
+          <option value="">-- Selecciona un Webtoon --</option>
+          {% for w in webtoons %}
+            <option value="{{ w.id }}">{{ w.titulo }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Número de Episodio</label>
+          <input class="form-control" type="number" name="numero_episodio">
+        </div>
+        <div class="col">
+          <label class="form-label">Fecha de Publicación</label>
+          <input class="form-control" type="date" name="fecha_publicacion">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Título del Episodio</label>
+        <input class="form-control" type="text" name="titulo_episodio">
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Vistas</label>
+          <input class="form-control" type="number" name="vistas" value="0">
+        </div>
+        <div class="col">
+          <label class="form-label">Calificación Promedio</label>
+          <input class="form-control" type="number" name="calificacion_promedio" step="0.01" min="0" max="5" value="0.00">
+        </div>
+      </div>
+
+      <div class="mb-3 form-check">
+        <input class="form-check-input" type="checkbox" name="es_gratuito" id="gratis" checked>
+        <label class="form-check-label" for="gratis">Episodio gratuito</label>
+      </div>
+
+      <button class="btn btn-primary">Guardar</button>
+      <a href="{% url 'app_Webtoon:ver_episodio' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

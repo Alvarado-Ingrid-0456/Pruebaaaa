@@ -30,4 +30,16 @@ urlpatterns = [
     path('subscripcion/actualizar/<int:subscripcion_id>/', views.actualizar_subscripcion, name='actualizar_subscripcion'),
     path('subscripcion/realizar_actualizacion/<int:subscripcion_id>/', views.realizar_actualizacion_subscripcion, name='realizar_actualizacion_subscripcion'),
     path('subscripcion/borrar/<int:subscripcion_id>/', views.borrar_subscripcion, name='borrar_subscripcion'),
+    # EPISODIOS
+    path('episodio/agregar/', views.agregar_episodio, name='agregar_episodio'),
+    path('episodio/ver/', views.ver_episodio, name='ver_episodio'),
+    path('episodio/actualizar/<int:episodio_id>/', views.actualizar_episodio, name='actualizar_episodio'),
+    path('episodio/realizar_actualizacion/<int:episodio_id>/', views.realizar_actualizacion_episodio, name='realizar_actualizacion_episodio'),
+    path('episodio/borrar/<int:episodio_id>/', views.borrar_episodio, name='borrar_episodio'),
+    # PAGINA EPISODIO
+    path('agregar_pagEpisodio/', views.agregar_pagEpisodio, name='agregar_pagEpisodio'),
+    path('ver_pagEpisodio/', views.ver_pagEpisodio, name='ver_pagEpisodio'),
+    path('actualizar_pagEpisodio/<int:pagina_id>/', views.actualizar_pagEpisodio, name='actualizar_pagEpisodio'),
+    path('realizar_actualizacion_pagEpisodio/<int:pagina_id>/', views.realizar_actualizacion_pagEpisodio, name='realizar_actualizacion_pagEpisodio'),
+    path('borrar_pagEpisodio/<int:pagina_id>/', views.borrar_pagEpisodio, name='borrar_pagEpisodio'),
 ]

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block titulo %}Ver Páginas de Episodio{% endblock %}
+{% block contenido %}
+<div class="container mt-4">
+    <h2 class="text-center text-info mb-4">Páginas de Episodio</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="table-success">
+            <tr>
+                <th>ID</th>
+                <th>Episodio</th>
+                <th>N° Página</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in paginas %}
+            <tr>
+                <td>{{ p.id }}</td>
+                <td>{{ p.episodio.titulo_episodio }}</td>
+                <td>{{ p.numero_pagina }}</td>
+                <td><img src="{{ p.imagen_url }}" width="100"></td>
+                <td>
+                    <a href="{% url 'app_Webtoon:actualizar_pagEpisodio' p.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'app_Webtoon:borrar_pagEpisodio' p.id %}" class="btn btn-danger btn-sm">Borrar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

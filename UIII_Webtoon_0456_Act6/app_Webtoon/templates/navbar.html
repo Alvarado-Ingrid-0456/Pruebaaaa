@@ -17,8 +17,6 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'app_Webtoon:agregar_usuario' %}">Agregar Usuario</a></li>
               <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_usuario' %}">Ver Usuario</a></li>
-              <li><a class="dropdown-item" href="#">Actualizar Usuario</a></li>
-              <li><a class="dropdown-item" href="#">Borrar Usuario</a></li>
             </ul>
           </li>
   
@@ -27,8 +25,6 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'app_Webtoon:agregar_webtoon' %}">Agregar webtoon</a></li>
               <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_webtoons' %}">Ver webtoons</a></li>
-              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_webtoons' %}">Actualizar webtoons</a></li>
-              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_webtoons' %}">Borrar webtoons</a></li>
             </ul>
           </li>
           
@@ -38,8 +34,6 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'app_Webtoon:agregar_membresia' %}">Agregar membresía</a></li>
               <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_membresia' %}">Ver membresías</a></li>
-              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_membresia' %}">Actualizar membresía</a></li>
-              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_membresia' %}">Borrar membresía</a></li>
             </ul>
           </li>
 
@@ -49,11 +43,24 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'app_Webtoon:agregar_subscripcion' %}">Agregar subscripción</a></li>
               <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_subscripcion' %}">Ver subscripciones</a></li>
-              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_subscripcion' %}">Actualizar subscripciones</a></li>
-              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_subscripcion' %}">Borrar subscripciones</a></li>
             </ul>
           </li>
           
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-collection-play"></i> Episodios</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:agregar_episodio' %}">Agregar episodio</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_episodio' %}">Ver episodios</a></li>
+            </ul>
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-collection-play"></i> Episodios</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:agregar_pagEpisodio' %}">Agregar Página Episodio</a></li>
+              <li><a class="dropdown-item" href="{% url 'app_Webtoon:ver_pagEpisodio' %}">Ver Páginas Episodio</a></li>
+            </ul>
+          </li>
         </ul>
         </div>
         </div>

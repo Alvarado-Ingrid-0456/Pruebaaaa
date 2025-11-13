@@ -73,3 +73,32 @@ class Suscripcion(models.Model):
 
     def __str__(self):
         return f"{self.usuario.nombre_usuario} suscrito a {self.webtoon.titulo}"
+# ==========================================
+# MODELO: EPISODIO
+# ==========================================
+class Episodio(models.Model):
+    webtoon = models.ForeignKey('Webtoon', on_delete=models.CASCADE, related_name='episodios')
+    numero_episodio = models.IntegerField()
+    titulo_episodio = models.CharField(max_length=100)
+    fecha_publicacion = models.DateField()
+    vistas = models.IntegerField(default=0)
+    calificacion_promedio = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
+    es_gratuito = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.webtoon.titulo} - Episodio {self.numero_episodio}: {self.titulo_episodio}"
+# ==========================================
+# MODELO: PAGINA EPISODIO
+# ==========================================
+class PaginaEpisodio(models.Model):
+    episodio = models.ForeignKey(Episodio, on_delete=models.CASCADE, related_name='paginas')
+    numero_pagina = models.IntegerField()
+    imagen_url = models.CharField(max_length=255)
+    alt_text = models.CharField(max_length=255, blank=True, null=True)
+    fecha_subida = models.DateTimeField()
+    ancho_pixel = models.IntegerField()
+    alto_pixel = models.IntegerField()
+
+    def __str__(self):
+        return f"Página {self.numero_pagina} del {self.episodio.titulo_episodio}"
+

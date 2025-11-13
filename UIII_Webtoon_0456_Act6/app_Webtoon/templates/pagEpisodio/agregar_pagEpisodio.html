@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block titulo %}Agregar Página Episodio{% endblock %}
+{% block contenido %}
+<div class="container mt-5 card p-4 shadow-lg rounded-4">
+    <h2 class="text-center text-success mb-4">Agregar Página de Episodio</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Episodio:</label>
+        <select name="episodio" class="form-control mb-3">
+            {% for e in episodios %}
+                <option value="{{ e.id }}">{{ e.titulo_episodio }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" name="numero_pagina" placeholder="Número de página" class="form-control mb-3" required>
+        <input type="text" name="imagen_url" placeholder="URL de la imagen" class="form-control mb-3">
+        <input type="text" name="alt_text" placeholder="Texto alternativo" class="form-control mb-3">
+        <input type="datetime-local" name="fecha_subida" class="form-control mb-3">
+        <input type="number" name="ancho_pixel" placeholder="Ancho (px)" class="form-control mb-3">
+        <input type="number" name="alto_pixel" placeholder="Alto (px)" class="form-control mb-3">
+        <button type="submit" class="btn btn-success w-100">Guardar Página</button>
+    </form>
+</div>
+{% endblock %}

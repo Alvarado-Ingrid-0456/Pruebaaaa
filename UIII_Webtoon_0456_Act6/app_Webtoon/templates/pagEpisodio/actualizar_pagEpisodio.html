@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block titulo %}Actualizar Página{% endblock %}
+{% block contenido %}
+<div class="container mt-5 card p-4 shadow-lg rounded-4">
+    <h2 class="text-center text-warning mb-4">Actualizar Página de Episodio</h2>
+    <form method="POST" action="{% url 'app_Webtoon:realizar_actualizacion_pagEpisodio' pagina.id %}">
+        {% csrf_token %}
+        <select name="episodio" class="form-control mb-3">
+            {% for e in episodios %}
+                <option value="{{ e.id }}" {% if e.id == pagina.episodio.id %}selected{% endif %}>{{ e.titulo_episodio }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" name="numero_pagina" value="{{ pagina.numero_pagina }}" class="form-control mb-3">
+        <input type="text" name="imagen_url" value="{{ pagina.imagen_url }}" class="form-control mb-3">
+        <input type="text" name="alt_text" value="{{ pagina.alt_text }}" class="form-control mb-3">
+        <input type="datetime-local" name="fecha_subida" value="{{ pagina.fecha_subida|date:'Y-m-d\\TH:i' }}" class="form-control mb-3">
+        <input type="number" name="ancho_pixel" value="{{ pagina.ancho_pixel }}" class="form-control mb-3">
+        <input type="number" name="alto_pixel" value="{{ pagina.alto_pixel }}" class="form-control mb-3">
+        <button type="submit" class="btn btn-warning w-100">Actualizar</button>
+    </form>
+</div>
+{% endblock %}

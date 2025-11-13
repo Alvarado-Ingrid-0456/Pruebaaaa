@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4 text-center">
+  <h3>Eliminar Episodio</h3>
+  <p>¿Seguro que deseas eliminar el episodio <strong>{{ episodio.titulo_episodio }}</strong> del Webtoon <strong>{{ episodio.webtoon.titulo }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger">Sí, eliminar</button>
+    <a href="{% url 'app_Webtoon:ver_episodio' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

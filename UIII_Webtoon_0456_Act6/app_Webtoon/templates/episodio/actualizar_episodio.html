@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Actualizar Episodio</h3>
+  <div class="card p-3 shadow-sm">
+    <form method="post" action="{% url 'app_Webtoon:realizar_actualizacion_episodio' episodio.id %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Webtoon</label>
+        <select class="form-select" name="webtoon">
+          {% for w in webtoons %}
+            <option value="{{ w.id }}" {% if episodio.webtoon.id == w.id %}selected{% endif %}>{{ w.titulo }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Número de Episodio</label>
+          <input class="form-control" type="number" name="numero_episodio" value="{{ episodio.numero_episodio }}">
+        </div>
+        <div class="col">
+          <label class="form-label">Fecha de Publicación</label>
+          <input class="form-control" type="date" name="fecha_publicacion" value="{{ episodio.fecha_publicacion }}">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Título del Episodio</label>
+        <input class="form-control" type="text" name="titulo_episodio" value="{{ episodio.titulo_episodio }}">
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Vistas</label>
+          <input class="form-control" type="number" name="vistas" value="{{ episodio.vistas }}">
+        </div>
+        <div class="col">
+          <label class="form-label">Calificación Promedio</label>
+          <input class="form-control" type="number" name="calificacion_promedio" step="0.01" value="{{ episodio.calificacion_promedio }}">
+        </div>
+      </div>
+
+      <div class="mb-3 form-check">
+        <input class="form-check-input" type="checkbox" name="es_gratuito" id="gratis" {% if episodio.es_gratuito %}checked{% endif %}>
+        <label class="form-check-label" for="gratis">Episodio gratuito</label>
+      </div>
+
+      <button class="btn btn-success">Guardar cambios</button>
+      <a href="{% url 'app_Webtoon:ver_episodio' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

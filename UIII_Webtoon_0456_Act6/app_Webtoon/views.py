@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password
-from .models import Usuario, Webtoon, Membresia, Suscripcion
+from .models import Usuario, Webtoon, Membresia, Suscripcion, Episodio, PaginaEpisodio
 # ==========================================
 # PÁGINA DE INICIO
 # ==========================================
@@ -362,3 +362,165 @@ def borrar_subscripcion(request, subscripcion_id):
         subs.delete()
         return redirect('app_Webtoon:ver_subscripcion')
     return render(request, 'subscripcion/borrar_subscripcion.html', {'subs': subs})
+
+# ==========================================
+# CRUD EPISODIOS
+# ==========================================
+
+def agregar_episodio(request):
+    if request.method == 'POST':
+        webtoon_id = request.POST.get('webtoon')
+        numero = request.POST.get('numero_episodio')
+        titulo = request.POST.get('titulo_episodio')
+        fecha = request.POST.get('fecha_publicacion')
+        vistas = request.POST.get('vistas', 0)
+        calificacion = request.POST.get('calificacion_promedio', 0.00)
+        es_gratuito = True if request.POST.get('es_gratuito') == 'on' else False
+
+        webtoon = None
+        if webtoon_id:
+            try:
+                webtoon = Webtoon.objects.get(id=int(webtoon_id))
+            except Webtoon.DoesNotExist:
+                webtoon = None
+
+        fecha_obj = fecha or timezone.now().date()
+
+        if webtoon:
+            Episodio.objects.create(
+                webtoon=webtoon,
+                numero_episodio=numero,
+                titulo_episodio=titulo,
+                fecha_publicacion=fecha_obj,
+                vistas=vistas,
+                calificacion_promedio=calificacion,
+                es_gratuito=es_gratuito
+            )
+
+        return redirect('app_Webtoon:ver_episodio')
+
+    webtoons = Webtoon.objects.all()
+    return render(request, 'episodio/agregar_episodio.html', {'webtoons': webtoons})
+
+
+def ver_episodio(request):
+    episodios = Episodio.objects.all().order_by('-fecha_publicacion')
+    return render(request, 'episodio/ver_episodio.html', {'episodios': episodios})
+
+
+def actualizar_episodio(request, episodio_id):
+    episodio = get_object_or_404(Episodio, id=episodio_id)
+    webtoons = Webtoon.objects.all()
+    return render(request, 'episodio/actualizar_episodio.html', {'episodio': episodio, 'webtoons': webtoons})
+
+
+def realizar_actualizacion_episodio(request, episodio_id):
+    episodio = get_object_or_404(Episodio, id=episodio_id)
+    if request.method == 'POST':
+        webtoon_id = request.POST.get('webtoon')
+        episodio.numero_episodio = request.POST.get('numero_episodio')
+        episodio.titulo_episodio = request.POST.get('titulo_episodio')
+        episodio.fecha_publicacion = request.POST.get('fecha_publicacion')
+        episodio.vistas = request.POST.get('vistas', 0)
+        episodio.calificacion_promedio = request.POST.get('calificacion_promedio', 0.00)
+        episodio.es_gratuito = True if request.POST.get('es_gratuito') == 'on' else False
+
+        if webtoon_id:
+            try:
+                episodio.webtoon = Webtoon.objects.get(id=int(webtoon_id))
+            except Webtoon.DoesNotExist:
+                pass
+
+        episodio.save()
+        return redirect('app_Webtoon:ver_episodio')
+    return redirect('app_Webtoon:actualizar_episodio', episodio_id=episodio.id)
+
+
+def borrar_episodio(request, episodio_id):
+    episodio = get_object_or_404(Episodio, id=episodio_id)
+    if request.method == 'POST':
+        episodio.delete()
+        return redirect('app_Webtoon:ver_episodio')
+    return render(request, 'episodio/borrar_episodio.html', {'episodio': episodio})
+
+# ==========================================
+# CRUD PAGINA EPISODIO
+# ==========================================
+
+# --- AGREGAR ---
+def agregar_pagEpisodio(request):
+    if request.method == 'POST':
+        episodio_id = request.POST.get('episodio', None)
+        numero_pagina = request.POST.get('numero_pagina', '')
+        imagen_url = request.POST.get('imagen_url', '')
+        alt_text = request.POST.get('alt_text', '')
+        fecha_subida = request.POST.get('fecha_subida', timezone.now())
+        ancho_pixel = request.POST.get('ancho_pixel', 0)
+        alto_pixel = request.POST.get('alto_pixel', 0)
+
+        episodio = None
+        if episodio_id:
+            try:
+                episodio = Episodio.objects.get(id=int(episodio_id))
+            except Episodio.DoesNotExist:
+                episodio = None
+
+        pag = PaginaEpisodio(
+            episodio=episodio,
+            numero_pagina=numero_pagina,
+            imagen_url=imagen_url,
+            alt_text=alt_text,
+            fecha_subida=fecha_subida,
+            ancho_pixel=ancho_pixel,
+            alto_pixel=alto_pixel
+        )
+        pag.save()
+        return redirect('app_Webtoon:ver_pagEpisodio')
+
+    episodios = Episodio.objects.all()
+    return render(request, 'pagEpisodio/agregar_pagEpisodio.html', {'episodios': episodios})
+
+
+# --- VER ---
+def ver_pagEpisodio(request):
+    paginas = PaginaEpisodio.objects.all().order_by('id')
+    return render(request, 'pagEpisodio/ver_pagEpisodio.html', {'paginas': paginas})
+
+
+# --- ACTUALIZAR (mostrar formulario) ---
+def actualizar_pagEpisodio(request, pagina_id):
+    pagina = get_object_or_404(PaginaEpisodio, id=pagina_id)
+    episodios = Episodio.objects.all()
+    return render(request, 'pagEpisodio/actualizar_pagEpisodio.html', {'pagina': pagina, 'episodios': episodios})
+
+
+# --- REALIZAR ACTUALIZACIÓN ---
+def realizar_actualizacion_pagEpisodio(request, pagina_id):
+    pagina = get_object_or_404(PaginaEpisodio, id=pagina_id)
+    if request.method == 'POST':
+        pagina.numero_pagina = request.POST.get('numero_pagina', pagina.numero_pagina)
+        pagina.imagen_url = request.POST.get('imagen_url', pagina.imagen_url)
+        pagina.alt_text = request.POST.get('alt_text', pagina.alt_text)
+        pagina.fecha_subida = request.POST.get('fecha_subida', pagina.fecha_subida)
+        pagina.ancho_pixel = request.POST.get('ancho_pixel', pagina.ancho_pixel)
+        pagina.alto_pixel = request.POST.get('alto_pixel', pagina.alto_pixel)
+
+        episodio_id = request.POST.get('episodio', None)
+        if episodio_id:
+            try:
+                pagina.episodio = Episodio.objects.get(id=int(episodio_id))
+            except Episodio.DoesNotExist:
+                pass
+
+        pagina.save()
+        return redirect('app_Webtoon:ver_pagEpisodio')
+    return redirect('app_Webtoon:actualizar_pagEpisodio', pagina_id=pagina.id)
+
+
+# --- BORRAR ---
+def borrar_pagEpisodio(request, pagina_id):
+    pagina = get_object_or_404(PaginaEpisodio, id=pagina_id)
+    if request.method == 'POST':
+        pagina.delete()
+        return redirect('app_Webtoon:ver_pagEpisodio')
+    return render(request, 'pagEpisodio/borrar_pagEpisodio.html', {'pagina': pagina})
